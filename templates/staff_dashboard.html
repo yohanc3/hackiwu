@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen bg-surface py-12 px-gutter">
+    <div class="max-w-[1200px] mx-auto">
+        <div class="flex justify-between items-start mb-12">
+            <div>
+                <a href="{{ url_for('index') }}" class="inline-flex items-center text-mono-label text-on-surface-variant mb-4">
+                    <span class="material-symbols-outlined text-lg mr-1">home</span>
+                    Home
+                </a>
+                <h1 class="text-headline-xl text-primary font-black mb-2">Staff Dashboard</h1>
+                <p class="text-on-surface-variant">Welcome back, {{ staff_email }}</p>
+            </div>
+            <form action="{{ url_for('staff_logout') }}" method="POST">
+                <button type="submit" class="text-mono-label text-xs text-primary border border-outline-variant px-4 py-2 rounded-full">
+                    Sign out
+                </button>
+            </form>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg">
+            <a href="{{ url_for('view_applications') }}" class="bg-white p-stack-lg rounded-xl border-l-8 border-primary shadow-sm block">
+                <span class="material-symbols-outlined text-primary text-4xl mb-stack-md">assignment</span>
+                <h3 class="text-headline-md text-primary mb-stack-sm font-bold">View Applications</h3>
+                <p class="text-on-surface-variant">Review all submitted hacker applications</p>
+            </a>
+
+            <div class="bg-white p-stack-lg rounded-xl border-l-8 border-outline-variant shadow-sm opacity-50">
+                <span class="material-symbols-outlined text-outline-variant text-4xl mb-stack-md">calendar_month</span>
+                <h3 class="text-headline-md text-on-surface-variant mb-stack-sm font-bold">Event Management</h3>
+                <p class="text-on-surface-variant">Coming soon</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

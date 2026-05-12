@@ -14,7 +14,7 @@
                 <a class="text-mono-label text-on-surface-variant hover:text-primary transition-colors" href="#team">Team</a>
                 <a class="text-mono-label text-on-surface-variant hover:text-primary transition-colors" href="#faq">FAQ</a>
                 {% if staff_logged_in %}
-                <a class="text-mono-label text-primary font-bold" href="{{ url_for('view_applications') }}">Staff portal</a>
+                <a class="text-mono-label text-primary font-bold" href="{{ url_for('staff_dashboard') }}">Staff portal</a>
                 {% else %}
                 <a class="inline-block text-mono-label text-white bg-primary px-4 py-2 rounded-full" href="{{ url_for('staff_login') }}">Staff login</a>
                 {% endif %}
@@ -22,7 +22,7 @@
             </div>
             <div class="md:hidden flex items-center gap-stack-md">
                 {% if staff_logged_in %}
-                <a class="text-mono-label text-primary font-bold" href="{{ url_for('view_applications') }}">Staff portal</a>
+                <a class="text-mono-label text-primary font-bold" href="{{ url_for('staff_dashboard') }}">Staff portal</a>
                 {% else %}
                 <a class="inline-block text-mono-label text-white bg-primary px-4 py-2 rounded-full" href="{{ url_for('staff_login') }}">Staff login</a>
                 {% endif %}

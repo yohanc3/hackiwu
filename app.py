@@ -43,10 +43,10 @@ def staff_required(view_function):
 
 def _safe_redirect_path(next_path):
     if not next_path or not isinstance(next_path, str):
-        return url_for("view_applications")
+        return url_for("staff_dashboard")
     if next_path.startswith("/") and not next_path.startswith("//"):
         return next_path
-    return url_for("view_applications")
+    return url_for("staff_dashboard")
 
 
 @app.route("/")
@@ -62,11 +62,7 @@ def staff_login():
     if request.method == "POST":
         email = (request.form.get("email") or "").strip().lower()
         password = request.form.get("password") or ""
-        staff_code = (request.form.get("staff_code") or "").strip()
 
-        if staff_code != config.STAFF_CODE:
-            flash("Staff code does not match.", "error")
-            return render_template("staff_login.html", email_prefill=email)
         if not email or not password:
             flash("Enter your email and password.", "error")
             return render_template("staff_login.html", email_prefill=email)
@@ -106,30 +102,30 @@ def staff_login():
 @app.route("/staff/signup", methods=["GET", "POST"])
 def staff_signup():
     if session.get("staff_id"):
-        return redirect(url_for("view_applications"))
+        return redirect(url_for("staff_dashboard"))
 
     if request.method == "POST":
         email = (request.form.get("email") or "").strip().lower()
+        email_input = request.form.get("email") or ""
         password = request.form.get("password") or ""
         password_confirm = request.form.get("password_confirm") or ""
         staff_code = (request.form.get("staff_code") or "").strip()
-        email_input = request.form.get("email") or ""
+
+        def _err(msg):
+            flash(msg, "error")
+            return render_template("staff_signup.html", email_prefill=email_input, staff_code_prefill=staff_code)
 
         if staff_code != config.STAFF_CODE:
-            flash("Staff code does not match.", "error")
-            return render_template("staff_signup.html", email_prefill=email_input)
+            return _err("Staff code does not match.")
 
         if not email or not password:
-            flash("Enter your email and a password.", "error")
-            return render_template("staff_signup.html", email_prefill=email_input)
+            return _err("Enter your email and a password.")
 
         if password != password_confirm:
-            flash("Passwords do not match.", "error")
-            return render_template("staff_signup.html", email_prefill=email_input)
+            return _err("Passwords do not match.")
 
         if len(password) < 8:
-            flash("Use a password with at least 8 characters.", "error")
-            return render_template("staff_signup.html", email_prefill=email_input)
+            return _err("Use a password with at least 8 characters.")
 
         password_hash = generate_password_hash(password)
 
@@ -150,14 +146,13 @@ def staff_signup():
                 )
                 rows = lookup.data or []
             if not rows:
-                flash("Could not create account. Try again.", "error")
-                return render_template("staff_signup.html", email_prefill=email_input)
+                return _err("Could not create account. Try again.")
 
             row = rows[0]
             session["staff_id"] = row["id"]
             session["staff_email"] = row["email"]
             flash("Account created. You're signed in.", "success")
-            return redirect(url_for("view_applications"))
+            return redirect(url_for("staff_dashboard"))
 
         except Exception as exc:
             print(f"Staff signup error: {exc}")
@@ -169,13 +164,10 @@ def staff_signup():
                 or "duplicate key" in err_text.lower()
                 or "unique constraint" in err_text.lower()
             )
-            if duplicate:
-                flash("That email is already registered. Sign in instead.", "error")
-            else:
-                flash("Something went wrong. Please try again later.", "error")
-            return render_template("staff_signup.html", email_prefill=email_input)
+            msg = "That email is already registered. Sign in instead." if duplicate else "Something went wrong. Please try again later."
+            return _err(msg)
 
-    return render_template("staff_signup.html", email_prefill="")
+    return render_template("staff_signup.html", email_prefill="", staff_code_prefill="")
 
 
 @app.route("/staff/logout", methods=["POST"])
@@ -240,6 +232,12 @@ def register():
             return render_template("register.html", form_data=form_data)
 
     return render_template("register.html", form_data=form_data)
+
+
+@app.route("/staff/dashboard")
+@staff_required
+def staff_dashboard():
+    return render_template("staff_dashboard.html")
 
 
 @app.route("/applications")
