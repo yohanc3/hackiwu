@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% macro row(label, value) %}
+<div class="grid grid-cols-[9rem_minmax(0,1fr)] gap-x-2 gap-y-0.5 py-1 border-b border-outline-variant/20 last:border-b-0 text-sm leading-snug">
+    <dt class="font-mono-label text-[11px] text-on-surface-variant uppercase shrink-0 pt-px">{{ label }}</dt>
+    <dd class="text-on-surface break-words">{{ value }}</dd>
+</div>
+{% endmacro %}
+
+{% block content %}
+<div class="min-h-screen bg-surface py-12 px-gutter">
+    <div class="max-w-[min(1640px,100%)] mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="font-headline-xl text-headline-xl text-primary font-black">Hacker Applications</h1>
+                <p class="font-body-md text-on-surface-variant">Reviewing the future Titans.</p>
+            </div>
+            <div class="bg-primary-container text-white px-4 py-1.5 rounded-full font-mono-label text-xs">
+                {{ applications|length }} Total
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {% for app in applications %}
+            <article class="bg-white rounded-md border border-outline-variant/40 shadow-sm p-4">
+                <h2 class="font-headline-md text-primary font-bold mb-1 leading-tight">
+                    {{ app.first_name }} {{ app.last_name }}
+                </h2>
+                <p class="text-[11px] font-mono-label text-on-surface-variant uppercase mb-3">
+                    Submitted
+                    {% if app.submitted_at %}
+                    {{ (app.submitted_at|string)[:19]|replace('T', ' ') }} UTC
+                    {% else %}—{% endif %}
+                </p>
+
+                <dl class="border-t border-outline-variant/30 pt-2">
+                    {{ row('First name', app.first_name) }}
+                    {{ row('Last name', app.last_name) }}
+                    {{ row('Email', app.email) }}
+                    {{ row('Phone', app.phone or '—') }}
+                    {{ row('18 or older confirmed', 'Yes' if app.age_confirm else 'No') }}
+                    {{ row('Accuracy confirmed', 'Yes' if app.accuracy_confirm else 'No') }}
+                    {{ row('Media release (opt-in)', 'Yes' if app.media_release else 'No') }}
+                    {{ row('School', app.school) }}
+                    {{ row('Other school details', app.school_other or '—') }}
+                    {{ row('Year in school', app.year) }}
+                    {{ row('Major / study area', app.major) }}
+                    {{ row('Expected graduation', app.grad_year) }}
+                    {{ row('Prior hackathons', app.experience) }}
+                    {{ row('Team status', app.team_status) }}
+                    {{ row('Track preference', app.track_preference or '—') }}
+                    {% set dietary_list = app.dietary or [] %}
+                    {% if dietary_list|length > 0 and not (dietary_list|length == 1 and dietary_list[0] == 'None') %}
+                        {{ row('Dietary (selected)', dietary_list | join(', ')) }}
+                    {% else %}
+                        {{ row('Dietary (selected)', '—') }}
+                    {% endif %}
+                    {{ row('Dietary (other note)', app.dietary_other or '—') }}
+                    <div class="grid grid-cols-[9rem_minmax(0,1fr)] gap-x-2 gap-y-0.5 py-1 border-b border-outline-variant/20 last:border-b-0 text-sm leading-snug">
+                        <dt class="font-mono-label text-[11px] text-on-surface-variant uppercase shrink-0 pt-px">LinkedIn profile</dt>
+                        <dd class="text-on-surface break-all">
+                            {% if app.linkedin %}
+                            <a href="{{ app.linkedin }}" target="_blank" rel="noopener noreferrer" class="text-primary underline hover:text-gold-accent">{{ app.linkedin }}</a>
+                            {% else %}—{% endif %}
+                        </dd>
+                    </div>
+                    {{ row('How they heard about us', app.referral) }}
+                </dl>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

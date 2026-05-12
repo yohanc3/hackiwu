@@ -1,0 +1,338 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="min-h-screen bg-surface py-20 px-gutter">
+    <div class="max-w-2xl mx-auto">
+        <!-- Header -->
+        <div class="mb-12">
+            <a href="/" class="inline-flex items-center text-primary hover:text-gold-accent transition-colors mb-8 group">
+                <span class="material-symbols-outlined mr-2 group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                Back to Home
+            </a>
+            <h1 class="font-headline-xl text-headline-xl text-primary font-black mb-4">Join the Titans.</h1>
+            <p class="font-body-lg text-on-surface-variant">
+                Ready to build something awesome? This should take about 3 minutes. We can't wait to see what you create.
+            </p>
+        </div>
+
+        <form action="/register" method="POST" class="space-y-12">
+            <!-- TEST ONLY: Autopopulate Button (Delete before production) -->
+            <div class="bg-surface-container-high p-4 rounded-2xl border border-primary/20 flex justify-between items-center">
+                <p class="text-xs font-mono-label text-primary font-bold">DEVELOPER TOOLS</p>
+                <button type="button" onclick="autopopulateForm()" class="text-xs bg-primary text-white px-4 py-2 rounded-full hover:bg-gold-accent transition-colors">
+                    Autopopulate Form
+                </button>
+            </div>
+            <!-- END TEST ONLY -->
+
+            <!-- Section 1: The Basics -->
+            <section class="space-y-6">
+                <div class="border-l-4 border-gold-accent pl-4 mb-8">
+                    <h2 class="font-headline-md text-primary font-bold">The Basics</h2>
+                    <p class="text-on-surface-variant text-sm">Logistics and check-in info.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex flex-col gap-2">
+                        <label for="first_name" class="font-bold text-primary">What's your first name?</label>
+                        <input type="text" id="first_name" name="first_name" required placeholder="As it appears on your student ID"
+                            value="{{ form_data.get('first_name', '') }}"
+                            class="bg-white border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                    </div>
+                    <div class="flex flex-col gap-2">
+                        <label for="last_name" class="font-bold text-primary">What's your last name?</label>
+                        <input type="text" id="last_name" name="last_name" required placeholder="As it appears on your student ID"
+                            value="{{ form_data.get('last_name', '') }}"
+                            class="bg-white border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="email" class="font-bold text-primary">What's your email?</label>
+                    <input type="email" id="email" name="email" required placeholder="your@email.com"
+                        value="{{ form_data.get('email', '') }}"
+                        class="bg-white border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="phone" class="font-bold text-primary">Phone number (optional)</label>
+                    <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000"
+                        value="{{ form_data.get('phone', '') }}"
+                        class="bg-white border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                </div>
+
+                <div class="flex items-start gap-3 pt-2">
+                    <input type="checkbox" id="age_confirm" name="age_confirm" required
+                        {% if form_data.get('age_confirm') == 'on' %}checked{% endif %}
+                        class="mt-1 w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary">
+                    <label for="age_confirm" class="text-on-surface-variant">I confirm that I am 18 years of age or older.</label>
+                </div>
+            </section>
+
+            <!-- Section 2: About You -->
+            <section class="space-y-6">
+                <div class="border-l-4 border-gold-accent pl-4 mb-8">
+                    <h2 class="font-headline-md text-primary font-bold">About You</h2>
+                    <p class="text-on-surface-variant text-sm">Help us tailor the experience.</p>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="school" class="font-bold text-primary">Where do you go to school?</label>
+                    <select id="school" name="school" required
+                        class="bg-white border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none">
+                        <option value="" disabled {% if not form_data.get('school') %}selected{% endif %}>Select your school</option>
+                        <option value="IWU" {% if form_data.get('school') == 'IWU' %}selected{% endif %}>Illinois Wesleyan University</option>
+                        <option value="Other" {% if form_data.get('school') == 'Other' %}selected{% endif %}>Another school</option>
+                    </select>
+                    <input type="text" id="school_other" name="school_other" placeholder="Please specify your school"
+                        value="{{ form_data.get('school_other', '') }}"
+                        class="{% if form_data.get('school') != 'Other' %}hidden{% endif %} mt-2 bg-white border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="year" class="font-bold text-primary">What year are you in?</label>
+                    <select id="year" name="year" required
+                        class="bg-white border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none">
+                        <option value="" disabled {% if not form_data.get('year') %}selected{% endif %}>Select your year</option>
+                        <option value="Freshman" {% if form_data.get('year') == 'Freshman' %}selected{% endif %}>First year (Freshman)</option>
+                        <option value="Sophomore" {% if form_data.get('year') == 'Sophomore' %}selected{% endif %}>Second year (Sophomore)</option>
+                        <option value="Junior" {% if form_data.get('year') == 'Junior' %}selected{% endif %}>Third year (Junior)</option>
+                        <option value="Senior" {% if form_data.get('year') == 'Senior' %}selected{% endif %}>Fourth year (Senior)</option>
+                        <option value="Graduate" {% if form_data.get('year') == 'Graduate' %}selected{% endif %}>Graduate student</option>
+                        <option value="Other" {% if form_data.get('year') == 'Other' %}selected{% endif %}>Other</option>
+                    </select>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="major" class="font-bold text-primary">What's your major (or what are you studying)?</label>
+                    <select id="major" name="major" required
+                        class="bg-white border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none">
+                        <option value="" disabled {% if not form_data.get('major') %}selected{% endif %}>Select your major</option>
+                        <option value="CS" {% if form_data.get('major') == 'CS' %}selected{% endif %}>Computer Science or Software Engineering</option>
+                        <option value="STEM" {% if form_data.get('major') == 'STEM' %}selected{% endif %}>Another STEM field (math, physics, biology, etc.)</option>
+                        <option value="Business" {% if form_data.get('major') == 'Business' %}selected{% endif %}>Business or Economics</option>
+                        <option value="Arts" {% if form_data.get('major') == 'Arts' %}selected{% endif %}>Arts, Design, or Music</option>
+                        <option value="Humanities" {% if form_data.get('major') == 'Humanities' %}selected{% endif %}>Humanities or Social Sciences</option>
+                        <option value="Pre-professional" {% if form_data.get('major') == 'Pre-professional' %}selected{% endif %}>Pre-professional (pre-law, pre-med, nursing, etc.)</option>
+                        <option value="Undecided" {% if form_data.get('major') == 'Undecided' %}selected{% endif %}>Undecided / Exploring</option>
+                        <option value="Other" {% if form_data.get('major') == 'Other' %}selected{% endif %}>Other</option>
+                    </select>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="grad_year" class="font-bold text-primary">When do you expect to graduate?</label>
+                    <select id="grad_year" name="grad_year" required
+                        class="bg-white border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none">
+                        <option value="" disabled {% if not form_data.get('grad_year') %}selected{% endif %}>Select year</option>
+                        <option value="2025" {% if form_data.get('grad_year') == '2025' %}selected{% endif %}>2025</option>
+                        <option value="2026" {% if form_data.get('grad_year') == '2026' %}selected{% endif %}>2026</option>
+                        <option value="2027" {% if form_data.get('grad_year') == '2027' %}selected{% endif %}>2027</option>
+                        <option value="2028" {% if form_data.get('grad_year') == '2028' %}selected{% endif %}>2028</option>
+                        <option value="2029" {% if form_data.get('grad_year') == '2029' %}selected{% endif %}>2029</option>
+                        <option value="2030+" {% if form_data.get('grad_year') == '2030+' %}selected{% endif %}>2030 or later</option>
+                    </select>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="experience" class="font-bold text-primary">How many hackathons have you been to before?</label>
+                    <select id="experience" name="experience" required
+                        class="bg-white border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none">
+                        <option value="" disabled {% if not form_data.get('experience') %}selected{% endif %}>Select experience</option>
+                        <option value="0" {% if form_data.get('experience') == '0' %}selected{% endif %}>None — this is my first one!</option>
+                        <option value="1-2" {% if form_data.get('experience') == '1-2' %}selected{% endif %}>1–2</option>
+                        <option value="3-5" {% if form_data.get('experience') == '3-5' %}selected{% endif %}>3–5</option>
+                        <option value="5+" {% if form_data.get('experience') == '5+' %}selected{% endif %}>More than 5</option>
+                    </select>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="team_status" class="font-bold text-primary">Are you coming with a team, or are you looking for one?</label>
+                    <select id="team_status" name="team_status" required
+                        class="bg-white border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none">
+                        <option value="" disabled {% if not form_data.get('team_status') %}selected{% endif %}>Select team status</option>
+                        <option value="Full Team" {% if form_data.get('team_status') == 'Full Team' %}selected{% endif %}>I have a full team</option>
+                        <option value="Need More" {% if form_data.get('team_status') == 'Need More' %}selected{% endif %}>I have some teammates but we need more people</option>
+                        <option value="Looking" {% if form_data.get('team_status') == 'Looking' %}selected{% endif %}>I'm looking for a team — please match me</option>
+                        <option value="Solo" {% if form_data.get('team_status') == 'Solo' %}selected{% endif %}>I'd like to work solo</option>
+                    </select>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label class="font-bold text-primary">Any dietary restrictions we should know about?</label>
+                    <div class="grid grid-cols-2 gap-3 mt-2">
+                        <label class="flex items-center gap-2 text-on-surface-variant cursor-pointer">
+                            <input type="checkbox" name="dietary" value="None" class="rounded border-outline-variant text-primary"
+                                {% if 'None' in form_data.get('dietary', []) %}checked{% endif %}> None
+                        </label>
+                        <label class="flex items-center gap-2 text-on-surface-variant cursor-pointer">
+                            <input type="checkbox" name="dietary" value="Vegetarian" class="rounded border-outline-variant text-primary"
+                                {% if 'Vegetarian' in form_data.get('dietary', []) %}checked{% endif %}> Vegetarian
+                        </label>
+                        <label class="flex items-center gap-2 text-on-surface-variant cursor-pointer">
+                            <input type="checkbox" name="dietary" value="Vegan" class="rounded border-outline-variant text-primary"
+                                {% if 'Vegan' in form_data.get('dietary', []) %}checked{% endif %}> Vegan
+                        </label>
+                        <label class="flex items-center gap-2 text-on-surface-variant cursor-pointer">
+                            <input type="checkbox" name="dietary" value="Gluten-free" class="rounded border-outline-variant text-primary"
+                                {% if 'Gluten-free' in form_data.get('dietary', []) %}checked{% endif %}> Gluten-free
+                        </label>
+                        <label class="flex items-center gap-2 text-on-surface-variant cursor-pointer">
+                            <input type="checkbox" name="dietary" value="Nut Allergy" class="rounded border-outline-variant text-primary"
+                                {% if 'Nut Allergy' in form_data.get('dietary', []) %}checked{% endif %}> Nut allergy
+                        </label>
+                        <label class="flex items-center gap-2 text-on-surface-variant cursor-pointer">
+                            <input type="checkbox" id="dietary_other_check" class="rounded border-outline-variant text-primary"
+                                {% if form_data.get('dietary_other') %}checked{% endif %}> Other
+                        </label>
+                    </div>
+                    <input type="text" id="dietary_other" name="dietary_other" placeholder="Please specify"
+                        value="{{ form_data.get('dietary_other', '') }}"
+                        class="{% if not form_data.get('dietary_other') %}hidden{% endif %} mt-2 bg-white border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                </div>
+            </section>
+
+            <!-- Section 3: Track Interest -->
+            <section class="space-y-6">
+                <div class="border-l-4 border-gold-accent pl-4 mb-8">
+                    <h2 class="font-headline-md text-primary font-bold">Track Interest</h2>
+                    <p class="text-on-surface-variant text-sm">Non-binding, just to help us plan.</p>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="track_preference" class="font-bold text-primary">Which track sounds most interesting to you?</label>
+                    <select id="track_preference" name="track_preference"
+                        class="bg-white border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none">
+                        <option value="" disabled {% if not form_data.get('track_preference') %}selected{% endif %}>Select a track</option>
+                        <option value="Social Impact" {% if form_data.get('track_preference') == 'Social Impact' %}selected{% endif %}>Social Impact</option>
+                        <option value="EdTech" {% if form_data.get('track_preference') == 'EdTech' %}selected{% endif %}>EdTech & Learning</option>
+                        <option value="Innovation" {% if form_data.get('track_preference') == 'Innovation' %}selected{% endif %}>Titan Innovation</option>
+                        <option value="Not Sure" {% if form_data.get('track_preference') == 'Not Sure' %}selected{% endif %}>Not sure yet — I'll figure it out at the event</option>
+                    </select>
+                </div>
+
+            </section>
+
+            <!-- Section 4: Links -->
+            <section class="space-y-6">
+                <div class="border-l-4 border-gold-accent pl-4 mb-8">
+                    <h2 class="font-headline-md text-primary font-bold">Links (Optional)</h2>
+                    <p class="text-on-surface-variant text-sm">Show us what you've built.</p>
+                </div>
+
+                <div class="grid grid-cols-1 gap-6">
+                    <div class="flex flex-col gap-2">
+                        <label for="linkedin" class="font-bold text-primary">LinkedIn profile</label>
+                        <input type="url" id="linkedin" name="linkedin" placeholder="https://linkedin.com/in/yourname"
+                            value="{{ form_data.get('linkedin', '') }}"
+                            class="bg-white border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Referral -->
+            <section class="space-y-6">
+                <div class="border-l-4 border-gold-accent pl-4 mb-8">
+                    <h2 class="font-headline-md text-primary font-bold">Final Details</h2>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                    <label for="referral" class="font-bold text-primary">How did you hear about HackTitan?</label>
+                    <select id="referral" name="referral" required
+                        class="bg-white border border-outline-variant rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all appearance-none">
+                        <option value="" disabled {% if not form_data.get('referral') %}selected{% endif %}>Select an option</option>
+                        <option value="Friend" {% if form_data.get('referral') == 'Friend' %}selected{% endif %}>A friend told me</option>
+                        <option value="Social Media" {% if form_data.get('referral') == 'Social Media' %}selected{% endif %}>I saw it on social media</option>
+                        <option value="Campus" {% if form_data.get('referral') == 'Campus' %}selected{% endif %}>ACM tabled or posted on campus</option>
+                        <option value="Professor" {% if form_data.get('referral') == 'Professor' %}selected{% endif %}>A professor or class mention</option>
+                        <option value="Email" {% if form_data.get('referral') == 'Email' %}selected{% endif %}>IWU email / newsletter</option>
+                        <option value="Organizing Team" {% if form_data.get('referral') == 'Organizing Team' %}selected{% endif %}>I'm on the ACM organizing team</option>
+                        <option value="Other" {% if form_data.get('referral') == 'Other' %}selected{% endif %}>Other</option>
+                    </select>
+                </div>
+
+                <div class="space-y-4 pt-4 border-t border-outline-variant/30">
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" id="media_release" name="media_release"
+                            {% if form_data.get('media_release') == 'on' %}checked{% endif %}
+                            class="mt-1 w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary">
+                        <label for="media_release" class="text-on-surface-variant text-sm">
+                            I'm okay with HackTitan taking photos/videos at the event that may be shared on social media or future marketing materials.
+                        </label>
+                    </div>
+
+                    <div class="flex items-start gap-3">
+                        <input type="checkbox" id="accuracy_confirm" name="accuracy_confirm" required
+                            {% if form_data.get('accuracy_confirm') == 'on' %}checked{% endif %}
+                            class="mt-1 w-5 h-5 rounded border-outline-variant text-primary focus:ring-primary">
+                        <label for="accuracy_confirm" class="text-on-surface-variant text-sm font-bold">
+                            Everything I've entered above is accurate to the best of my knowledge.
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Submit -->
+            <div class="pt-8">
+                <button type="submit" class="w-full bg-primary-container text-white py-4 rounded-full font-headline-md font-bold hover:bg-primary transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg">
+                    Submit Application
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Handle "Other" school fallback
+    document.getElementById('school').addEventListener('change', function() {
+        const otherInput = document.getElementById('school_other');
+        if (this.value === 'Other') {
+            otherInput.classList.remove('hidden');
+            otherInput.required = true;
+        } else {
+            otherInput.classList.add('hidden');
+            otherInput.required = false;
+        }
+    });
+
+    // Handle "Other" dietary fallback
+    document.getElementById('dietary_other_check').addEventListener('change', function() {
+        const otherInput = document.getElementById('dietary_other');
+        if (this.checked) {
+            otherInput.classList.remove('hidden');
+            otherInput.required = true;
+        } else {
+            otherInput.classList.add('hidden');
+            otherInput.required = false;
+        }
+    });
+
+    // TEST ONLY: Autopopulate function (Delete before production)
+    function autopopulateForm() {
+        document.getElementById('first_name').value = 'Titan';
+        document.getElementById('last_name').value = 'Hacker';
+        document.getElementById('email').value = 'hacker@iwu.edu';
+        document.getElementById('phone').value = '3091234567';
+        document.getElementById('age_confirm').checked = true;
+        document.getElementById('school').value = 'IWU';
+        document.getElementById('year').value = 'Junior';
+        document.getElementById('major').value = 'CS';
+        document.getElementById('grad_year').value = '2027';
+        document.getElementById('experience').value = '1-2';
+        document.getElementById('team_status').value = 'Looking';
+        
+        // Check some dietary restrictions
+        const dietaryChecks = document.querySelectorAll('input[name="dietary"]');
+        dietaryChecks[1].checked = true; // Vegetarian
+        dietaryChecks[3].checked = true; // Gluten-free
+        
+        document.getElementById('track_preference').value = 'Innovation';
+        document.getElementById('linkedin').value = 'https://linkedin.com/in/titanhacker';
+        document.getElementById('referral').value = 'Campus';
+        document.getElementById('media_release').checked = true;
+        document.getElementById('accuracy_confirm').checked = true;
+        
+        console.log('Form autopopulated for testing.');
+    }
+    // END TEST ONLY
+</script>
+{% endblock %}

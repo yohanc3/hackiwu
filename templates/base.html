@@ -126,6 +126,23 @@
     </style>
 </head>
 <body class="font-body-md text-body-md">
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="fixed top-24 right-6 z-[60] flex flex-col gap-3">
+          {% for category, message in messages %}
+            <div class="px-6 py-4 rounded-xl shadow-lg border backdrop-blur-md flex items-center gap-3 animate-in slide-in-from-right duration-300
+              {% if category == 'success' %} bg-primary/90 text-white border-primary {% else %} bg-error/90 text-white border-error {% endif %}">
+              <span class="material-symbols-outlined">
+                {% if category == 'success' %} check_circle {% else %} error {% endif %}
+              </span>
+              <p class="font-bold">{{ message }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
     {% block content %}{% endblock %}
 </body>
 </html>
