@@ -13,10 +13,19 @@
                 <a class="font-mono-label text-mono-label text-on-surface-variant hover:text-primary transition-all duration-200" href="#sponsors">Sponsors</a>
                 <a class="font-mono-label text-mono-label text-on-surface-variant hover:text-primary transition-all duration-200" href="#team">Team</a>
                 <a class="font-mono-label text-mono-label text-on-surface-variant hover:text-primary transition-all duration-200" href="#faq">FAQ</a>
+                {% if staff_logged_in %}
+                <a class="font-mono-label text-mono-label text-primary font-bold border border-primary/40 px-4 py-2 rounded-full hover:bg-primary/5 transition-all" href="{{ url_for('view_applications') }}">Staff portal</a>
+                {% else %}
+                <a class="font-mono-label text-mono-label text-on-surface-variant hover:text-primary border border-outline-variant/60 px-4 py-2 rounded-full hover:border-primary/40 transition-all" href="{{ url_for('staff_login') }}">Staff login</a>
+                {% endif %}
                 <a class="bg-primary-container text-white px-6 py-2 rounded-full font-mono-label hover:scale-95 transition-transform flex items-center justify-center" href="/register">Register</a>
             </div>
-            <!-- Mobile Menu Icon -->
-            <div class="md:hidden">
+            <div class="md:hidden flex items-center gap-stack-md">
+                {% if staff_logged_in %}
+                <a class="font-mono-label text-mono-label text-primary font-bold" href="{{ url_for('view_applications') }}">Staff portal</a>
+                {% else %}
+                <a class="font-mono-label text-mono-label text-on-surface-variant" href="{{ url_for('staff_login') }}">Staff login</a>
+                {% endif %}
                 <span class="material-symbols-outlined text-primary">menu</span>
             </div>
         </div>

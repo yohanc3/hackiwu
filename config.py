@@ -18,3 +18,4 @@ def get_env_variable(name: str) -> str:
 SUPABASE_URL = get_env_variable("SUPABASE_URL")
 SUPABASE_KEY = get_env_variable("SUPABASE_KEY")
 FLASK_SECRET_KEY = get_env_variable("FLASK_SECRET_KEY")
+STAFF_CODE = get_env_variable("STAFF_CODE").strip()

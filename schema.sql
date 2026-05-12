@@ -30,3 +30,4 @@ CREATE TABLE IF NOT EXISTS applications (
     linkedin         TEXT,
     referral         TEXT         NOT NULL,
     submitted_at     TIMESTAMPTZ  NOT NULL DEFAULT NOW()
+);

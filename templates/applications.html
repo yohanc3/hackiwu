@@ -10,13 +10,23 @@
 {% block content %}
 <div class="min-h-screen bg-surface py-12 px-gutter">
     <div class="max-w-[min(1640px,100%)] mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center mb-8">
+        <div class="flex flex-wrap justify-between items-start gap-4 mb-8">
             <div>
                 <h1 class="font-headline-xl text-headline-xl text-primary font-black">Hacker Applications</h1>
                 <p class="font-body-md text-on-surface-variant">Reviewing the future Titans.</p>
+                {% if staff_email %}
+                <p class="text-xs font-mono-label text-on-surface-variant mt-2">Signed in as {{ staff_email }}</p>
+                {% endif %}
             </div>
-            <div class="bg-primary-container text-white px-4 py-1.5 rounded-full font-mono-label text-xs">
-                {{ applications|length }} Total
+            <div class="flex flex-wrap items-center gap-3">
+                <div class="bg-primary-container text-white px-4 py-1.5 rounded-full font-mono-label text-xs">
+                    {{ applications|length }} Total
+                </div>
+                <form action="{{ url_for('staff_logout') }}" method="POST">
+                    <button type="submit" class="font-mono-label text-xs text-primary border border-outline-variant px-4 py-1.5 rounded-full hover:bg-surface-container-high transition-colors">
+                        Sign out
+                    </button>
+                </form>
             </div>
         </div>
 
