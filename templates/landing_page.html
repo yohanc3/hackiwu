@@ -1,0 +1,259 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <!-- TopNavBar -->
+    <nav class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-md border-b border-outline-variant/30">
+        <div class="max-w-[1200px] mx-auto px-gutter h-20 flex justify-between items-center">
+            <div class="font-headline-md text-headline-md font-black text-primary">HackTitan</div>
+            <div class="hidden md:flex gap-stack-lg items-center">
+                <a class="font-mono-label text-mono-label text-on-surface-variant hover:text-primary transition-all duration-200" href="#about">About</a>
+                <a class="font-mono-label text-mono-label text-on-surface-variant hover:text-primary transition-all duration-200" href="#tracks">Tracks</a>
+                <a class="font-mono-label text-mono-label text-on-surface-variant hover:text-primary transition-all duration-200" href="#timeline">Timeline</a>
+                <a class="font-mono-label text-mono-label text-on-surface-variant hover:text-primary transition-all duration-200" href="#prizes">Prizes</a>
+                <a class="font-mono-label text-mono-label text-on-surface-variant hover:text-primary transition-all duration-200" href="#sponsors">Sponsors</a>
+                <a class="font-mono-label text-mono-label text-on-surface-variant hover:text-primary transition-all duration-200" href="#team">Team</a>
+                <a class="font-mono-label text-mono-label text-on-surface-variant hover:text-primary transition-all duration-200" href="#faq">FAQ</a>
+                <button class="bg-primary-container text-white px-6 py-2 rounded-full font-mono-label hover:scale-95 transition-transform">Register</button>
+            </div>
+            <!-- Mobile Menu Icon -->
+            <div class="md:hidden">
+                <span class="material-symbols-outlined text-primary">menu</span>
+            </div>
+        </div>
+    </nav>
+    <!-- § 1 — Hero -->
+    <header class="pt-32 pb-section-padding hero-pattern">
+        <div class="max-w-[1200px] mx-auto px-gutter grid grid-cols-1 md:grid-cols-[60%_40%] gap-stack-lg items-center">
+            <div class="flex flex-col gap-stack-md">
+                <span class="font-mono-label text-mono-label text-gold-accent font-bold">[ SPRING 2027 · BLOOMINGTON, IL ]</span>
+                <h1 class="font-headline-xl text-headline-xl text-primary leading-tight font-black">Build What You Wish Existed.</h1>
+                <p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
+                    HackTitan is IWU's student hackathon. 24 hours. Real problems. Open to everyone.
+                </p>
+                <div class="flex flex-wrap gap-stack-md mt-stack-md">
+                    <button class="bg-primary-container text-white px-8 py-4 rounded-full font-headline-md font-bold hover:bg-primary transition-colors">Register Now</button>
+                    <button class="border border-primary text-primary px-8 py-4 rounded-full font-headline-md font-bold hover:bg-primary/5 transition-colors">Learn More</button>
+                </div>
+            </div>
+            <div class="relative flex justify-center items-center">
+                <div class="w-72 h-72 md:w-96 md:h-96 rounded-full border-[12px] border-primary-container overflow-hidden shadow-xl">
+                    <img class="w-full h-full object-cover" data-alt="A diverse group of university students collaborating intensely on laptops in a sun-drenched modern campus lounge." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmvqCRhd1oOv74i8B_b2r5fc1nMZCktI9fR3uVmvc6LT_nBM7-19_wp7rehgWrFphM1sMWt-lwrdLkOW204V8KTA79mtkDxWaKDIrnf5EDQ_iqyz2njxwughD4ItxmY6Xv2fmy-aSYQS176RtCDrDF6UvYapAvSUqDf8Q7N7aKfjvsDNWn_QT2lPugLWjioSyNhDSCk0PoFuApGtWk24Hbkmj4mW55FDVWm1Y5f5d-13kVdJBHCjarD-vkF60iudBtPObuQwVUMYsE"/>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- § 3 — Tracks -->
+    <section class="py-section-padding" id="tracks">
+        <div class="max-w-[1200px] mx-auto px-gutter">
+            <div class="mb-stack-lg border-l-4 border-gold-accent pl-4">
+                <span class="font-mono-label text-mono-label text-on-surface-variant font-bold">THE CHALLENGE</span>
+                <h2 class="font-headline-xl text-headline-xl text-primary font-black">Hackathon Tracks</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-stack-lg">
+                <!-- Track 1 -->
+                <div class="bg-white p-stack-lg rounded-xl border-l-8 border-primary shadow-sm hover:translate-y-[-4px] transition-all">
+                    <span class="material-symbols-outlined text-primary text-4xl mb-stack-md">diversity_3</span>
+                    <h3 class="font-headline-md text-headline-md text-primary mb-stack-sm font-bold">Social Impact</h3>
+                    <p class="font-body-md text-on-surface-variant">Build tools that address civic engagement, accessibility, or sustainability within our local Bloomington community.</p>
+                </div>
+                <!-- Track 2 -->
+                <div class="bg-white p-stack-lg rounded-xl border-l-8 border-gold-accent shadow-sm hover:translate-y-[-4px] transition-all">
+                    <span class="material-symbols-outlined text-gold-accent text-4xl mb-stack-md">school</span>
+                    <h3 class="font-headline-md text-headline-md text-primary mb-stack-sm font-bold">EdTech &amp; Learning</h3>
+                    <p class="font-body-md text-on-surface-variant">Reimagine the student experience. Create applications that help peers learn, organize, or connect in an academic setting.</p>
+                </div>
+                <!-- Track 3 -->
+                <div class="bg-white p-stack-lg rounded-xl border-l-8 border-secondary shadow-sm hover:translate-y-[-4px] transition-all">
+                    <span class="material-symbols-outlined text-secondary text-4xl mb-stack-md">rocket_launch</span>
+                    <h3 class="font-headline-md text-headline-md text-primary mb-stack-sm font-bold">Titan Innovation</h3>
+                    <p class="font-body-md text-on-surface-variant">The wildcard track. Pitch your boldest ideas using cutting-edge technologies to solve any problem you're passionate about.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- § 4 — Timeline -->
+    <section class="py-section-padding bg-surface-container-low" id="timeline">
+        <div class="max-w-[1200px] mx-auto px-gutter">
+            <h2 class="font-headline-xl text-headline-xl text-primary text-center mb-section-padding-mobile font-black">The Titan Schedule</h2>
+            <div class="relative max-w-4xl mx-auto">
+                <!-- Vertical Line -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 w-0.5 bg-primary-container h-full"></div>
+                <div class="space-y-stack-lg">
+                    <!-- Item 1 -->
+                    <div class="relative flex items-center justify-between">
+                        <div class="w-[45%] text-right pr-stack-lg">
+                            <h4 class="font-headline-md text-primary font-bold">Registration Opens</h4>
+                            <p class="font-body-md text-on-surface-variant">Check-in at State Farm Hall, grab your swag bag.</p>
+                        </div>
+                        <div class="z-10 bg-primary-container text-white px-3 py-1 rounded-full font-mono-label font-bold">09:00</div>
+                        <div class="w-[45%]"></div>
+                    </div>
+                    <!-- Item 2 -->
+                    <div class="relative flex items-center justify-between">
+                        <div class="w-[45%]"></div>
+                        <div class="z-10 bg-primary-container text-white px-3 py-1 rounded-full font-mono-label font-bold">10:30</div>
+                        <div class="w-[45%] text-left pl-stack-lg">
+                            <h4 class="font-headline-md text-primary font-bold">Opening Ceremony</h4>
+                            <p class="font-body-md text-on-surface-variant">Keynote speech and track reveals. Hacking begins!</p>
+                        </div>
+                    </div>
+                    <!-- Item 3 -->
+                    <div class="relative flex items-center justify-between">
+                        <div class="w-[45%] text-right pr-stack-lg">
+                            <h4 class="font-headline-md text-primary font-bold">Lunch &amp; Workshop</h4>
+                            <p class="font-body-md text-on-surface-variant">Refuel and learn about API integration from our sponsors.</p>
+                        </div>
+                        <div class="z-10 bg-primary-container text-white px-3 py-1 rounded-full font-mono-label font-bold">13:00</div>
+                        <div class="w-[45%]"></div>
+                    </div>
+                    <!-- Item 4 -->
+                    <div class="relative flex items-center justify-between">
+                        <div class="w-[45%]"></div>
+                        <div class="z-10 bg-primary-container text-white px-3 py-1 rounded-full font-mono-label font-bold">21:00</div>
+                        <div class="w-[45%] text-left pl-stack-lg">
+                            <h4 class="font-headline-md text-primary font-bold">Midnight Snack Run</h4>
+                            <p class="font-body-md text-on-surface-variant">Titan tradition: fuel up for the final push!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- § 5 — Prizes -->
+    <section class="py-section-padding" id="prizes">
+        <div class="max-w-[1200px] mx-auto px-gutter">
+            <h2 class="font-headline-xl text-headline-xl text-primary text-center mb-12 font-black">The Podium</h2>
+            <div class="flex flex-col md:flex-row items-end justify-center gap-stack-md">
+                <!-- 2nd Place -->
+                <div class="w-full md:w-1/4 bg-white p-stack-lg rounded-t-xl border-t-4 border-outline-variant shadow-sm text-center md:order-1">
+                    <span class="material-symbols-outlined text-outline-variant text-5xl mb-stack-md">workspace_premium</span>
+                    <h3 class="font-headline-md text-primary font-bold">2nd Place</h3>
+                    <p class="font-mono-label text-gold-accent mt-2 font-bold">$500 Cash Prize</p>
+                    <p class="font-body-md text-on-surface-variant mt-4">Plus custom Titan peripherals and stickers.</p>
+                </div>
+                <!-- 1st Place -->
+                <div class="w-full md:w-1/3 bg-white p-stack-lg rounded-t-xl border-t-8 border-gold-accent shadow-md text-center md:order-2 z-10 scale-105">
+                    <span class="material-symbols-outlined text-gold-accent text-6xl mb-stack-md">trophy</span>
+                    <h3 class="font-headline-lg text-primary font-bold">Grand Prize</h3>
+                    <p class="font-mono-label text-gold-accent mt-2 font-black">$1,500 Cash Prize</p>
+                    <p class="font-body-md text-on-surface-variant mt-4">The Titan Cup, internships fast-track, and exclusive IWU gear.</p>
+                </div>
+                <!-- 3rd Place -->
+                <div class="w-full md:w-1/4 bg-white p-stack-lg rounded-t-xl border-t-4 border-tertiary-container shadow-sm text-center md:order-3">
+                    <span class="material-symbols-outlined text-tertiary-container text-5xl mb-stack-md">emoji_events</span>
+                    <h3 class="font-headline-md text-primary font-bold">3rd Place</h3>
+                    <p class="font-mono-label text-gold-accent mt-2 font-bold">$250 Cash Prize</p>
+                    <p class="font-body-md text-on-surface-variant mt-4">Titan branded hoodies and premium subscriptions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- § 6 — Sponsors -->
+    <section class="py-section-padding bg-off-white border-y border-outline-variant/30" id="sponsors">
+        <div class="max-w-[1200px] mx-auto px-gutter">
+            <h2 class="font-mono-label text-mono-label text-center text-on-surface-variant mb-12 uppercase tracking-widest font-black">Our Partners in Building</h2>
+            <div class="space-y-stack-lg">
+                <!-- Titan Tier -->
+                <div class="text-center">
+                    <p class="font-mono-label text-gold-accent text-xs mb-4 font-bold">TITAN TIER</p>
+                    <div class="flex justify-center flex-wrap gap-12 transition-all items-center">
+                        <img class="h-20 w-auto object-contain" src="https://1000logos.net/wp-content/uploads/2018/04/State-Farm-Logo.png" alt="State Farm">
+                        <img class="h-20 w-auto object-contain" src="https://resources.americaneagle.com/aecom-blobs/images/default-source/brand-images/fs-systems-growmark-logo.png?sfvrsn=65d2dfe1_1" alt="Growmark">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- § 7 — Meet the Team -->
+    <section class="py-section-padding" id="team">
+        <div class="max-w-[1200px] mx-auto px-gutter">
+            <h2 class="font-headline-xl text-headline-xl text-primary text-center mb-section-padding-mobile font-black">The Organizers</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-stack-lg">
+                <!-- Team Member -->
+                <div class="text-center group">
+                    <div class="w-32 h-32 mx-auto rounded-full overflow-hidden border-2 border-gold-accent p-1 mb-4">
+                        <img class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-300" data-alt="Alex Rivera" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZlCpu6yVVxISF-8k0Ien-Ay3VwLWerZ6kpbcrTQ0lOgXr6wJw0DhBooIIZ_nf6ZHi8sbn_GpOIedNnOE-96BmLMgTTG0Ie3A1n2plvQZpgMEDvIKILl_61M8t1GGTFDjU7xNMkW1gm_8PdTLs_1Wu9ZMO48lHhdAvSUyXBQEhNWAfE99OGO-TxDP-9c9D5pM6Ov2Q-H2MVKgLNt1SpxuOEWF2Nnbre6xbfAfvnYoGoJPq7flztNBthT2BiIm4yqGAJGuhOEt1CbDc"/>
+                    </div>
+                    <h3 class="font-headline-md text-primary font-bold">Alex Rivera</h3>
+                    <p class="font-mono-label text-on-surface-variant text-xs font-bold">LEAD COORDINATOR</p>
+                </div>
+                <!-- Team Member -->
+                <div class="text-center group">
+                    <div class="w-32 h-32 mx-auto rounded-full overflow-hidden border-2 border-gold-accent p-1 mb-4">
+                        <img class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-300" data-alt="Maya Patel" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-Sq3ug4-oRsyz0rGouDoI2BbkrM-GTQi4ZLKnxVYw3kvz59A0vKVIm25kChU_USfwXt4Xlo1hsHt2wBSF635bL6uzd0Y0adUO99mHa2nE9YkiLXMUxHZuJwSEaULvj-DCVSD8TSgaM0V34FkfDUaZP_VwZkUaGb18n2VJCIA8O2OWdsQnFN_LLqCOHvZAggMjoXfiZrKVkmAiY59jyN417n8YyCUZtZ4fnx4bblfRz6iWVrUgwFgSu2omKHu8xSLd9FYoOuj_nJkA"/>
+                    </div>
+                    <h3 class="font-headline-md text-primary font-bold">Maya Patel</h3>
+                    <p class="font-mono-label text-on-surface-variant text-xs font-bold">TECH DIRECTOR</p>
+                </div>
+                <!-- Team Member -->
+                <div class="text-center group">
+                    <div class="w-32 h-32 mx-auto rounded-full overflow-hidden border-2 border-gold-accent p-1 mb-4">
+                        <img class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-300" data-alt="Jordan Lee" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnwRtlJUr3iFMZqIl96ZsMe8ZctE8BX8HBD6dgaKdJBLix4GRwEW4F0cqEDUUXNFsSgOVe4r3BdJBLYGTefiVIvdwLXSH9A-IbBddIBkG9oqtwCD9Xpyc_okYprXYqOfIB5NLgxvor7_ya19qK9VoPe5si0Frcpq81tYpwmGxqWxE4Lhcpd35mq7ouZCD-ro6UdaaooDFGyr0271sY1tp5T7a3jtDmFxomf20XmVa-h7IuexV9or9NnmP4w5IUNu39iNYFprBAIxrc"/>
+                    </div>
+                    <h3 class="font-headline-md text-primary font-bold">Jordan Lee</h3>
+                    <p class="font-mono-label text-on-surface-variant text-xs font-bold">EXPERIENCE DESIGN</p>
+                </div>
+                <!-- Team Member -->
+                <div class="text-center group">
+                    <div class="w-32 h-32 mx-auto rounded-full overflow-hidden border-2 border-gold-accent p-1 mb-4">
+                        <img class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-300" data-alt="Chloe Smith" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCbUpyriRoVBMbbpMOtQBK-UTViM4DZY8tISpGjHJKyYsAvIdvuJIlR42ae2F-2cU-vkHFEnZGaPL6aUdK4y-eqQABpooLca-3J2ay794QxNT3V5SWw5nXkuprkzXRVgrXrAe3-ro1DYS6J3WRo-FkxAgGRiIDojnjudf6valhDwVPm9LwqPOXK5Ss5WGDJ3Mx0W4p5affY7vvjyHPEGHOCZKaQPRN5l00I-uZE568B_KSH64Pe2x53q4eApXjXCfluU0U4EvxGvMR8"/>
+                    </div>
+                    <h3 class="font-headline-md text-primary font-bold">Chloe Smith</h3>
+                    <p class="font-mono-label text-on-surface-variant text-xs font-bold">LOGISTICS LEAD</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- § 8 — FAQ -->
+    <section class="py-section-padding bg-surface-container-lowest" id="faq">
+        <div class="max-w-[1200px] mx-auto px-gutter">
+            <h2 class="font-headline-xl text-headline-xl text-primary mb-12 text-center font-black">Frequently Asked</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
+                <div>
+                    <h3 class="font-headline-md text-primary border-b border-gold-accent pb-2 mb-4 font-bold">Who can participate?</h3>
+                    <p class="font-body-md text-on-surface-variant">Any currently enrolled student at IWU or neighboring colleges! We welcome all majors—not just CS. Diversity in thinking builds better solutions.</p>
+                </div>
+                <div>
+                    <h3 class="font-headline-md text-primary border-b border-gold-accent pb-2 mb-4 font-bold">What if I can't code?</h3>
+                    <p class="font-body-md text-on-surface-variant">Perfect! Hackathons need designers, writers, business thinkers, and subject matter experts. We'll have workshops to help you get started.</p>
+                </div>
+                <div>
+                    <h3 class="font-headline-md text-primary border-b border-gold-accent pb-2 mb-4 font-bold">What should I bring?</h3>
+                    <p class="font-body-md text-on-surface-variant">Your laptop, chargers, a refillable water bottle, and your creative energy. If you're staying overnight, maybe a blanket or sleeping bag!</p>
+                </div>
+                <div>
+                    <h3 class="font-headline-md text-primary border-b border-gold-accent pb-2 mb-4 font-bold">Is there a cost?</h3>
+                    <p class="font-body-md text-on-surface-variant">Nope. HackTitan is 100% free for students thanks to our amazing sponsors. We even provide all your meals and snacks.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-surface-container-low border-t border-outline-variant w-full pt-section-padding pb-stack-lg">
+        <div class="max-w-[1200px] mx-auto px-gutter flex flex-col md:flex-row justify-between items-start gap-stack-lg">
+            <div class="flex flex-col gap-stack-sm">
+                <div class="font-headline-md text-headline-md text-primary font-black">HackTitan</div>
+                <p class="font-body-md text-on-surface-variant max-w-xs">
+                    © 2024 Illinois Wesleyan University. HackTitan is a student-led initiative.
+                </p>
+            </div>
+            <div class="grid grid-cols-2 gap-12">
+                <div class="flex flex-col gap-2">
+                    <p class="font-mono-label text-primary font-bold">RESOURCES</p>
+                    <a class="font-body-md text-on-surface-variant hover:text-gold-accent transition-colors" href="#">Contact Info</a>
+                    <a class="font-body-md text-on-surface-variant hover:text-gold-accent transition-colors" href="#">Code of Conduct</a>
+                    <a class="font-body-md text-on-surface-variant hover:text-gold-accent transition-colors" href="#">IWU Website</a>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <p class="font-mono-label text-primary font-bold">SOCIAL</p>
+                    <a class="font-body-md text-on-surface-variant hover:text-gold-accent transition-colors" href="#">Instagram</a>
+                    <a class="font-body-md text-on-surface-variant hover:text-gold-accent transition-colors" href="#">LinkedIn</a>
+                    <a class="font-body-md text-on-surface-variant hover:text-gold-accent transition-colors" href="#">Discord</a>
+                </div>
+            </div>
+        </div>
+        <div class="max-w-[1200px] mx-auto px-gutter mt-stack-lg pt-stack-md border-t border-outline-variant/30 text-center">
+            <span class="font-mono-label text-on-surface-variant text-[10px] font-bold">DESIGNED WITH PRIDE AT IWU</span>
+        </div>
+    </footer>
+{% endblock %}
