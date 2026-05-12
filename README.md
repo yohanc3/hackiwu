@@ -1,5 +1,5 @@
 # HackTitan Website
-This site contains information regarding the event, and it also handles
+This site contains information regarding the event, and it also handlesdummy change
 registration.
 
 ## Event Information
